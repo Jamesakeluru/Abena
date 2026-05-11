@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    :root {
+      --bg: #f8e4f0;
+      --card: #ffffff;
+      --primary: #e76f8c;
+      --secondary: #6b5b95;
+      --text: #3d2c5a;
+      --shadow: rgba(109, 72, 94, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #fde8f2 0%, #f7d3ee 40%, #f8e4f0 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      position: relative;
+      width: min(980px, 100%);
+      background: var(--card);
+      border-radius: 28px;
+      box-shadow: 0 24px 50px var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .hero {
+      padding: 48px 36px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(231,111,140,0.18), rgba(255,255,255,0));
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0 auto 28px;
+      max-width: 700px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #5d406f;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .button-row button {
+      border: none;
+      border-radius: 999px;
+      padding: 16px 26px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      box-shadow: 0 12px 24px rgba(231, 111, 140, 0.18);
+    }
+
+    .button-row button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .button-secondary {
+      background: #fff;
+      color: var(--secondary);
+      border: 1px solid rgba(107, 91, 149, 0.2);
+    }
+
+    .message {
+      margin-top: 18px;
+      color: #6b5b95;
+      font-size: 0.98rem;
+    }
+
+    .card {
+      padding: 32px 36px 40px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+
+    video {
+      width: 100%;
+      max-height: 520px;
+      border-radius: 20px;
+      outline: none;
+      box-shadow: 0 18px 40px rgba(92, 39, 86, 0.18);
+      margin-bottom: 24px;
+      background: #000;
+    }
+
+    .slideshow {
+      margin-top: 24px;
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 760px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 16px 34px rgba(107, 91, 149, 0.12);
+    }
+
+    .slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .caption {
+      margin: 0;
+      padding: 14px 18px 16px;
+      font-size: 0.98rem;
+      color: #664f7d;
+      background: #faf5fb;
+    }
+
+    .slide-controls {
+      display: none;
+    }
+
+    .slide-controls button {
+      min-width: 96px;
+      padding: 14px 18px;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 0.98rem;
+      color: #6f5e80;
+      text-align: center;
+    }
+
+    .rose-fall {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .rose-fall .rose {
+      position: absolute;
+      top: -10%;
+      display: block;
+      animation: roseFall linear infinite;
+      transform-origin: center;
+      opacity: 0;
+    }
+
+    @keyframes roseFall {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(20vw, 110vh, 0) rotate(720deg);
+        opacity: 0.2;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero { padding: 32px 22px; }
+      .card { padding: 24px 22px 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="rose-fall" aria-hidden="true"></div>
+    <section id="heroSection" class="hero">
+      <h1>Happy Birthday, Abena!</h1>
+      <p>its your special day!</p>
+      <div class="button-row">
+        <button id="openButton" class="button-primary">click me</button>
+      </div>
+    </section>
+
+    <section id="surpriseSection" class="card hidden">
+      <audio id="bgMusic" loop style="display:none;">
+        <source src="WhatsApp Audio 2026-05-11 at 03.20.56.mpeg" type="audio/mpeg">
+      </audio>
+      <div id="slideshow" class="slideshow hidden">
+        <div class="slide">
+          <img id="slideImage" src="WhatsApp Image 2026-05-11 at 02.24.52.jpeg" alt="Birthday photo 1">
+          <p id="slideCaption" class="caption">Here’s one special moment</p>
+        </div>
+        <div class="slide-controls">
+          <button id="prevSlide" class="button-secondary">◀ Previous</button>
+          <button id="nextSlide" class="button-secondary">Next ▶</button>
+        </div>
+      </div>
+      
+    </section>
+  </div>
+
+  <script>
+    const openButton = document.getElementById('openButton');
+    const heroSection = document.getElementById('heroSection');
+    const surpriseSection = document.getElementById('surpriseSection');
+    const slideshow = document.getElementById('slideshow');
+    const slideImage = document.getElementById('slideImage');
+    const slideCaption = document.getElementById('slideCaption');
+    const bgMusic = document.getElementById('bgMusic');
+
+    let currentSlide = 0;
+    let autoPlayInterval = null;
+    let isHolding = false;
+    let touchStartX = 0;
+    const autoPlayDelay = 2500; // 2.5 seconds per slide
+
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => {
+        if (!isHolding) {
+          showSlide(currentSlide + 1);
+        }
+      }, autoPlayDelay);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
+
+    const slides = [
+      {
+        src: 'WhatsApp Image 2026-05-11 at 02.24.52.jpeg',
+        alt: 'Birthday photo 1',
+        caption: 'its a day to celebrate you and the amazing person you are'
+      },
+      {
+        src: 'WhatsApp Image 2026-05-11 at 02.24.52 (1).jpeg',
+        alt: 'Birthday photo 2',
+        caption: 'you have been a source of joy and inspiration to everyone around you, and I am grateful to have you in my life'
+      },
+      {
+        src: 'WhatsApp Image 2026-05-11 at 02.24.52 (2).jpeg',
+        alt: 'Birthday photo 3',
+        caption: 'not forgetting the pick me enrgy you always bring to the table, you are truly one of a kind'
+      },
+      {
+        src: 'WhatsApp Image 2026-05-11 at 02.24.52 (3).jpeg',
+        alt: 'Birthday photo 4',
+        caption: 'may you have a fantastic day filled with love, laughter, and all the things that make you happy. Happy birthday, Abena!'
+      }
+    ];
+
+    function createRosePetals() {
+      const roseFall = document.querySelector('.rose-fall');
+      const roseCount = 10;
+      const textCount = 4;
+
+      for (let i = 0; i < roseCount; i += 1) {
+        const rose = document.createElement('span');
+        rose.className = 'rose';
+        rose.textContent = '🌹';
+        rose.style.left = `${Math.random() * 100}%`;
+        rose.style.fontSize = `${Math.random() * 18 + 26}px`;
+        rose.style.animationDuration = `${6 + Math.random() * 8}s`;
+        rose.style.animationDelay = `${Math.random() * 4}s`;
+        rose.style.transform = `rotate(${Math.random() * 360}deg)`;
+        rose.style.opacity = `${0.7 + Math.random() * 0.3}`;
+        roseFall.appendChild(rose);
+      }
+
+      for (let i = 0; i < textCount; i += 1) {
+        const text = document.createElement('span');
+        text.className = 'rose';
+        text.textContent = 'Happy birthday, Abena!';
+        text.style.left = `${Math.random() * 100}%`;
+        text.style.fontSize = `${12 + Math.random() * 8}px`;
+        text.style.fontWeight = 'bold';
+        text.style.color = '#e76f8c';
+        text.style.animationDuration = `${8 + Math.random() * 10}s`;
+        text.style.animationDelay = `${Math.random() * 5}s`;
+        text.style.opacity = `${0.6 + Math.random() * 0.3}`;
+        roseFall.appendChild(text);
+      }
+    }
+
+    function showSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+      slideImage.src = slides[currentSlide].src;
+      slideImage.alt = slides[currentSlide].alt;
+      slideCaption.textContent = slides[currentSlide].caption;
+      slideshow.classList.remove('hidden');
+    }
+
+    // Hold detection
+    slideshow.addEventListener('mousedown', () => {
+      isHolding = true;
+    });
+
+    slideshow.addEventListener('mouseup', () => {
+      isHolding = false;
+      resetAutoPlay();
+    });
+
+    slideshow.addEventListener('mouseleave', () => {
+      isHolding = false;
+      resetAutoPlay();
+    });
+
+    // Swipe detection
+    slideshow.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      isHolding = true;
+    });
+
+    slideshow.addEventListener('touchend', (e) => {
+      isHolding = false;
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          showSlide(currentSlide + 1);
+        } else {
+          showSlide(currentSlide - 1);
+        }
+        resetAutoPlay();
+      }
+    });
+
+    createRosePetals();
+
+    openButton.addEventListener('click', () => {
+      heroSection.classList.add('hidden');
+      surpriseSection.classList.remove('hidden');
+      showSlide(0);
+      startAutoPlay();
+      bgMusic.play().catch(() => {
+        // Audio autoplay may be blocked by browser
+      });
+    });
+
+  </script>
+</body>
+</html>
